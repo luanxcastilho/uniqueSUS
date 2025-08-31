@@ -1,8 +1,8 @@
 package br.com.fiap.uniquesus.application.usecases.paciente;
 
 import br.com.fiap.uniquesus.domain.entities.Paciente;
-import br.com.fiap.uniquesus.domain.exceptions.paciente.CpfJaRegistradoException;
-import br.com.fiap.uniquesus.domain.exceptions.paciente.PacienteNaoEncontradoPeloId;
+import br.com.fiap.uniquesus.domain.exceptions.paciente.CPFJaRegistradoException;
+import br.com.fiap.uniquesus.domain.exceptions.paciente.PacienteNaoEncontradoPeloIdException;
 import br.com.fiap.uniquesus.domain.gateways.PacienteGateway;
 
 public class AtualizarPacienteUseCase
@@ -16,33 +16,33 @@ public class AtualizarPacienteUseCase
     
     public Paciente executar ( Paciente paciente )
     {
-        Paciente pacienteExistente = this.pacienteGateway.buscarPacientePorId( paciente.getPacienteId() )
-                .orElseThrow( () -> new PacienteNaoEncontradoPeloId( paciente.getPacienteId() ) );
+        Paciente pacienteEncontrado = this.pacienteGateway.buscarPacientePeloId( paciente.getPacienteId() )
+                .orElseThrow( () -> new PacienteNaoEncontradoPeloIdException( paciente.getPacienteId() ) );
         
-        if (paciente.getCpf() != null && !pacienteExistente.getCpf().equals( paciente.getCpf() ))
+        if (paciente.getCpf() != null && !pacienteEncontrado.getCpf().equals( paciente.getCpf() ))
         {
             if (this.pacienteGateway.buscarPacientePorCPF( paciente.getCpf() ).isPresent())
             {
-                throw new CpfJaRegistradoException( paciente.getCpf() );
+                throw new CPFJaRegistradoException( paciente.getCpf() );
             }
-            pacienteExistente.setCpf( paciente.getCpf() );
+            pacienteEncontrado.setCpf( paciente.getCpf() );
         }
         
-        if (paciente.getNome() != null && !pacienteExistente.getNome().equals( paciente.getNome() ))
+        if (paciente.getNome() != null && !pacienteEncontrado.getNome().equals( paciente.getNome() ))
         {
-            pacienteExistente.setNome( paciente.getNome() );
+            pacienteEncontrado.setNome( paciente.getNome() );
         }
         
-        if (paciente.getEmail() != null && !pacienteExistente.getEmail().equals( paciente.getEmail() ))
+        if (paciente.getEmail() != null && !pacienteEncontrado.getEmail().equals( paciente.getEmail() ))
         {
-            pacienteExistente.setEmail( paciente.getEmail() );
+            pacienteEncontrado.setEmail( paciente.getEmail() );
         }
         
-        if (paciente.getTelefone() != null && !pacienteExistente.getTelefone().equals( paciente.getTelefone() ))
+        if (paciente.getTelefone() != null && !pacienteEncontrado.getTelefone().equals( paciente.getTelefone() ))
         {
-            pacienteExistente.setTelefone( paciente.getTelefone() );
+            pacienteEncontrado.setTelefone( paciente.getTelefone() );
         }
         
-        return this.pacienteGateway.gravarPaciente( pacienteExistente );
+        return this.pacienteGateway.gravarPaciente( pacienteEncontrado );
     }
 }

@@ -1,7 +1,7 @@
 package br.com.fiap.uniquesus.application.usecases.paciente;
 
 import br.com.fiap.uniquesus.domain.entities.Paciente;
-import br.com.fiap.uniquesus.domain.exceptions.paciente.PacienteNaoEncontradoPeloId;
+import br.com.fiap.uniquesus.domain.exceptions.paciente.PacienteNaoEncontradoPeloIdException;
 import br.com.fiap.uniquesus.domain.gateways.PacienteGateway;
 
 public class RemoverPacienteUseCase
@@ -15,8 +15,8 @@ public class RemoverPacienteUseCase
     
     public void executar ( Long pacienteId )
     {
-        Paciente paciente = this.pacienteGateway.buscarPacientePorId( pacienteId )
-                                    .orElseThrow( () -> new PacienteNaoEncontradoPeloId( pacienteId ) );
+        Paciente paciente = this.pacienteGateway.buscarPacientePeloId( pacienteId )
+                                    .orElseThrow( () -> new PacienteNaoEncontradoPeloIdException( pacienteId ) );
         
         this.pacienteGateway.removerPaciente( pacienteId );
     }

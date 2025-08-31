@@ -1,8 +1,8 @@
 package br.com.fiap.uniquesus.domain.exceptions.paciente;
 
-public class CpfJaRegistradoException extends RuntimeException
+public class CPFJaRegistradoException extends RuntimeException
 {
-    public CpfJaRegistradoException ( String cpf )
+    public CPFJaRegistradoException ( String cpf )
     {
         super( "O CPF " + cpf + " já esta sendo utilizado." );
     }

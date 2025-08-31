@@ -10,7 +10,7 @@ public interface PacienteGateway
 {
     Optional<Paciente> buscarPacientePorCPF ( String cpf );
     
-    Optional<Paciente> buscarPacientePorId ( Long pacienteId );
+    Optional<Paciente> buscarPacientePeloId ( Long pacienteId );
     
     Paciente gravarPaciente ( Paciente paciente );
     

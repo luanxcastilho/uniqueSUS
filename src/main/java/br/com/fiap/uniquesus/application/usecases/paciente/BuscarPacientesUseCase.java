@@ -6,11 +6,11 @@ import br.com.fiap.uniquesus.domain.gateways.PacienteGateway;
 import java.awt.print.Pageable;
 import java.util.List;
 
-public class BuscarPacientes
+public class BuscarPacientesUseCase
 {
     private final PacienteGateway pacienteGateway;
     
-    public BuscarPacientes ( PacienteGateway pacienteGateway )
+    public BuscarPacientesUseCase ( PacienteGateway pacienteGateway )
     {
         this.pacienteGateway = pacienteGateway;
     }

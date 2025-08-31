@@ -1,7 +1,7 @@
 package br.com.fiap.uniquesus.application.usecases.paciente;
 
 import br.com.fiap.uniquesus.domain.entities.Paciente;
-import br.com.fiap.uniquesus.domain.exceptions.paciente.CpfJaRegistradoException;
+import br.com.fiap.uniquesus.domain.exceptions.paciente.CPFJaRegistradoException;
 import br.com.fiap.uniquesus.domain.gateways.PacienteGateway;
 
 public class CriarPacienteUseCase
@@ -17,7 +17,7 @@ public class CriarPacienteUseCase
     {
         if (this.pacienteGateway.buscarPacientePorCPF( paciente.getCpf() ).isPresent())
         {
-            throw new CpfJaRegistradoException( paciente.getCpf() );
+            throw new CPFJaRegistradoException( paciente.getCpf() );
         }
         return this.pacienteGateway.gravarPaciente( paciente );
     }
