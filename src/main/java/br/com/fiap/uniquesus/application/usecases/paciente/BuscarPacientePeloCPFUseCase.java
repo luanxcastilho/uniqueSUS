@@ -17,7 +17,7 @@ public class BuscarPacientePeloCPFUseCase
     
     public Optional<Paciente> executar ( String cpf )
     {
-        return Optional.of( this.pacienteGateway.buscarPacientePorCPF( cpf )
+        return Optional.of( this.pacienteGateway.buscarPacientePeloCPF( cpf )
                                     .orElseThrow( () -> new PacienteNaoEncontradoPeloCpfException( cpf ) ) );
     }
 }

@@ -15,7 +15,7 @@ public class CriarPacienteUseCase
     
     public Paciente executar ( Paciente paciente )
     {
-        if (this.pacienteGateway.buscarPacientePorCPF( paciente.getCpf() ).isPresent())
+        if (this.pacienteGateway.buscarPacientePeloCPF( paciente.getCpf() ).isPresent())
         {
             throw new CPFJaRegistradoException( paciente.getCpf() );
         }

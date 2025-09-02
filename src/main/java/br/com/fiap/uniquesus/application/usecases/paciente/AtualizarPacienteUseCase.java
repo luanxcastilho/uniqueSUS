@@ -21,7 +21,7 @@ public class AtualizarPacienteUseCase
         
         if (paciente.getCpf() != null && !pacienteEncontrado.getCpf().equals( paciente.getCpf() ))
         {
-            if (this.pacienteGateway.buscarPacientePorCPF( paciente.getCpf() ).isPresent())
+            if (this.pacienteGateway.buscarPacientePeloCPF( paciente.getCpf() ).isPresent())
             {
                 throw new CPFJaRegistradoException( paciente.getCpf() );
             }
