@@ -2,9 +2,8 @@ package br.com.fiap.uniquesus.application.usecases.medico;
 
 import br.com.fiap.uniquesus.domain.entities.Medico;
 import br.com.fiap.uniquesus.domain.gateways.MedicoGateway;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 
 public class BuscarMedicosUseCase
 {
@@ -15,7 +14,7 @@ public class BuscarMedicosUseCase
         this.medicoGateway = medicoGateway;
     }
     
-    public List<Medico> executar ( Pageable pageable )
+    public Page<Medico> executar ( Pageable pageable )
     {
         return this.medicoGateway.listarMedicos( pageable );
     }
