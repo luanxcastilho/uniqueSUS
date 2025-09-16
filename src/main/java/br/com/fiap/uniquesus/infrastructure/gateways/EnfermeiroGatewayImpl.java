@@ -45,7 +45,7 @@ public class EnfermeiroGatewayImpl implements EnfermeiroGateway
     }
     
     @Override
-    public Page<Enfermeiro> listarEnfermeiros ( Pageable pageable )
+    public Page<Enfermeiro> buscarEnfermeiros ( Pageable pageable )
     {
         return this.enfermeiroRepository.findAll( pageable ).map( EnfermeiroMapper::toDomain );
     }

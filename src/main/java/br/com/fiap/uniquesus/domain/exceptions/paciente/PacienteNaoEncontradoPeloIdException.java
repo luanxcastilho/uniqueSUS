@@ -4,6 +4,6 @@ public class PacienteNaoEncontradoPeloIdException extends RuntimeException
 {
     public PacienteNaoEncontradoPeloIdException ( Long pacienteId )
     {
-        super( "Paciente com ID " + pacienteId + " não encontrado." );
+        super( "Paciente com ID [" + pacienteId + "] não encontrado." );
     }
 }

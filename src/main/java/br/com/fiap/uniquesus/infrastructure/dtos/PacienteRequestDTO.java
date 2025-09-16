@@ -1,6 +1,12 @@
 package br.com.fiap.uniquesus.infrastructure.dtos;
 
-public class CriarPacienteRequestDto
+import lombok.Data;
+
+@Data
+public class PacienteRequestDTO
 {
-    
+    private String nome;
+    private String cpf;
+    private String email;
+    private String telefone;
 }

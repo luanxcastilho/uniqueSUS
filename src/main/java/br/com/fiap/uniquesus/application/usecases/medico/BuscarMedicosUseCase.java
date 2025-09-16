@@ -16,6 +16,6 @@ public class BuscarMedicosUseCase
     
     public Page<Medico> executar ( Pageable pageable )
     {
-        return this.medicoGateway.listarMedicos( pageable );
+        return this.medicoGateway.buscarMedicos( pageable );
     }
 }

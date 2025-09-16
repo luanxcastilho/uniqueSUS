@@ -16,5 +16,5 @@ public interface EnfermeiroGateway
     
     void removerEnfermeiro ( Long enfermeiroId );
     
-    Page<Enfermeiro> listarEnfermeiros ( Pageable pageable );
+    Page<Enfermeiro> buscarEnfermeiros ( Pageable pageable );
 }

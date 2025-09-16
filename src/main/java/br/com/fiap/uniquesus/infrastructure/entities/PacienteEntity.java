@@ -2,6 +2,8 @@ package br.com.fiap.uniquesus.infrastructure.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -27,9 +29,7 @@ public class PacienteEntity
     @Column(name = "telefone", length = 20, nullable = false)
     private String telefone;
     
-    @Column(name = "data_inclusao", nullable = false)
+    @CreatedDate
+    @Column(name = "data_inclusao", updatable = false, nullable = false)
     private LocalDateTime dataInclusao;
-    
-    @Column(name = "data_alteracao", nullable = false)
-    private LocalDateTime dataAlteracao;
 }

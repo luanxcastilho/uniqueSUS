@@ -45,7 +45,7 @@ public class PacienteGatewayImpl implements PacienteGateway
     }
     
     @Override
-    public Page<Paciente> listarPacientes ( Pageable pageable )
+    public Page<Paciente> buscarPacientes ( Pageable pageable )
     {
         return this.pacienteRepository.findAll( pageable ).map( PacienteMapper::toDomain );
     }

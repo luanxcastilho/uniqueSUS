@@ -16,5 +16,5 @@ public interface MedicoGateway
     
     void removerMedico ( Long medicoId );
     
-    Page<Medico> listarMedicos ( Pageable pageable );
+    Page<Medico> buscarMedicos ( Pageable pageable );
 }

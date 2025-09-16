@@ -4,8 +4,6 @@ import br.com.fiap.uniquesus.domain.entities.Paciente;
 import br.com.fiap.uniquesus.domain.exceptions.paciente.PacienteNaoEncontradoPeloCpfException;
 import br.com.fiap.uniquesus.domain.gateways.PacienteGateway;
 
-import java.util.Optional;
-
 public class BuscarPacientePeloCPFUseCase
 {
     private final PacienteGateway pacienteGateway;
@@ -15,9 +13,9 @@ public class BuscarPacientePeloCPFUseCase
         this.pacienteGateway = pacienteGateway;
     }
     
-    public Optional<Paciente> executar ( String cpf )
+    public Paciente executar ( String cpf )
     {
-        return Optional.of( this.pacienteGateway.buscarPacientePeloCPF( cpf )
-                                    .orElseThrow( () -> new PacienteNaoEncontradoPeloCpfException( cpf ) ) );
+        return this.pacienteGateway.buscarPacientePeloCPF( cpf )
+                .orElseThrow( () -> new PacienteNaoEncontradoPeloCpfException( cpf ) );
     }
 }

@@ -16,6 +16,6 @@ public class BuscarEnfermeirosUseCase
     
     public Page<Enfermeiro> executar ( Pageable pageable )
     {
-        return this.enfermeiroGateway.listarEnfermeiros( pageable );
+        return this.enfermeiroGateway.buscarEnfermeiros( pageable );
     }
 }

@@ -2,9 +2,9 @@ package br.com.fiap.uniquesus.application.usecases.paciente;
 
 import br.com.fiap.uniquesus.domain.entities.Paciente;
 import br.com.fiap.uniquesus.domain.gateways.PacienteGateway;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.awt.print.Pageable;
-import java.util.List;
 
 public class BuscarPacientesUseCase
 {
@@ -15,8 +15,8 @@ public class BuscarPacientesUseCase
         this.pacienteGateway = pacienteGateway;
     }
     
-    public List<Paciente> executar ( Pageable pageable )
+    public Page<Paciente> executar ( Pageable pageable )
     {
-        return this.pacienteGateway.listarPacientes( pageable );
+        return this.pacienteGateway.buscarPacientes( pageable );
     }
 }

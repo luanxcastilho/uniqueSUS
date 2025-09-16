@@ -45,7 +45,7 @@ public class MedicoGatewayImpl implements MedicoGateway
     }
     
     @Override
-    public Page<Medico> listarMedicos ( Pageable pageable )
+    public Page<Medico> buscarMedicos ( Pageable pageable )
     {
         return this.medicoRepository.findAll( pageable ).map( MedicoMapper::toDomain );
     }

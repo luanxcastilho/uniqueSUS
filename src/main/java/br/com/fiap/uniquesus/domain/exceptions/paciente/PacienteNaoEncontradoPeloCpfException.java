@@ -4,6 +4,6 @@ public class PacienteNaoEncontradoPeloCpfException extends RuntimeException
 {
     public PacienteNaoEncontradoPeloCpfException ( String cpf )
     {
-        super( "Paciente com CPF " + cpf + " não encontrado." );
+        super( "Paciente com CPF [" + cpf + "] não encontrado." );
     }
 }

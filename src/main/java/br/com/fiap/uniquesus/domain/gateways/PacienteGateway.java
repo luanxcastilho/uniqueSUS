@@ -16,5 +16,5 @@ public interface PacienteGateway
     
     void removerPaciente ( Long pacienteId );
     
-    Page<Paciente> listarPacientes ( Pageable pageable );
+    Page<Paciente> buscarPacientes ( Pageable pageable );
 }
