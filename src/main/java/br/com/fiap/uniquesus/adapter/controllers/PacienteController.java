@@ -7,6 +7,7 @@ import br.com.fiap.uniquesus.infrastructure.dtos.PacienteRequestDTO;
 import br.com.fiap.uniquesus.infrastructure.dtos.PacienteResponseDTO;
 import br.com.fiap.uniquesus.infrastructure.dtos.PageResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/pacientes")
+@Tag( name = "Pacientes" , description = "Gerenciamento de pacientes." )
 public class PacienteController
 {
     private final Logger logger = LoggerFactory.getLogger( PacienteController.class );
@@ -54,7 +56,7 @@ public class PacienteController
     }
     
     @PutMapping("/{pacienteId}")
-    @Operation(summary = "Atualiza um paciente.")
+    @Operation(summary = "Atualiza um paciente pelo ID.")
     public ResponseEntity<PacienteResponseDTO> atualizarPaciente (
             @PathVariable
             Long pacienteId ,
@@ -69,7 +71,7 @@ public class PacienteController
     }
     
     @DeleteMapping("/{pacienteId}")
-    @Operation(summary = "Remove um paciente.")
+    @Operation(summary = "Remove um paciente pelo ID.")
     public ResponseEntity<Void> removerPaciente (
             @PathVariable
             Long pacienteId )
@@ -98,7 +100,7 @@ public class PacienteController
     }
     
     @GetMapping("/cpf/{cpf}")
-    @Operation(summary = "Busca um paciente pelo ID.")
+    @Operation(summary = "Busca um paciente pelo CPF.")
     public ResponseEntity<PacienteResponseDTO> buscarPacientePeloCpf (
             @PathVariable
             String cpf )
