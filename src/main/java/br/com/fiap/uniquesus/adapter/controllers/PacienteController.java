@@ -94,8 +94,8 @@ public class PacienteController
             @PathVariable
             Long pacienteId )
     {
-        Optional<Paciente> pacienteEncontrado = Optional.of( this.buscarPacientePeloIdUseCase.executar( pacienteId ) );
-        PacienteResponseDTO pacienteResponseDTO = PacientePresenter.toDTO( pacienteEncontrado.get() );
+        Paciente pacienteEncontrado = this.buscarPacientePeloIdUseCase.executar( pacienteId ) ;
+        PacienteResponseDTO pacienteResponseDTO = PacientePresenter.toDTO( pacienteEncontrado );
         return ResponseEntity.status( HttpStatus.OK ).body( pacienteResponseDTO );
     }
     
@@ -105,8 +105,8 @@ public class PacienteController
             @PathVariable
             String cpf )
     {
-        Optional<Paciente> pacienteEncontrado = Optional.of( this.buscarPacientePeloCPFUseCase.executar( cpf ) );
-        PacienteResponseDTO pacienteResponseDTO = PacientePresenter.toDTO( pacienteEncontrado.get() );
+        Paciente pacienteEncontrado = this.buscarPacientePeloCPFUseCase.executar( cpf );
+        PacienteResponseDTO pacienteResponseDTO = PacientePresenter.toDTO( pacienteEncontrado );
         return ResponseEntity.status( HttpStatus.OK ).body( pacienteResponseDTO );
     }
 }

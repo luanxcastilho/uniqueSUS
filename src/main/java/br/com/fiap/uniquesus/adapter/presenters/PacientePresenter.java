@@ -5,8 +5,6 @@ import br.com.fiap.uniquesus.infrastructure.dtos.PacienteRequestDTO;
 import br.com.fiap.uniquesus.infrastructure.dtos.PacienteResponseDTO;
 import org.springframework.data.domain.Page;
 
-import java.util.ArrayList;
-
 public class PacientePresenter
 {
     public static PacienteResponseDTO toDTO ( Paciente paciente )

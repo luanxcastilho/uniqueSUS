@@ -4,6 +4,6 @@ public class CRMJaRegistradoException extends RuntimeException
 {
     public CRMJaRegistradoException ( String crm )
     {
-        super( "O CRM " + crm + " já esta sendo utilizado." );
+        super( "O CRM [" + crm + "] já esta sendo utilizado." );
     }
 }
