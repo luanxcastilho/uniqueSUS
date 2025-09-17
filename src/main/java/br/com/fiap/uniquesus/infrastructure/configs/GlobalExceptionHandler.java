@@ -1,5 +1,8 @@
 package br.com.fiap.uniquesus.infrastructure.configs;
 
+import br.com.fiap.uniquesus.domain.exceptions.enfermeiro.CorenJaRegistradoException;
+import br.com.fiap.uniquesus.domain.exceptions.enfermeiro.EnfermeiroNaoEncontradoPeloCorenException;
+import br.com.fiap.uniquesus.domain.exceptions.enfermeiro.EnfermeiroNaoEncontradoPeloIdException;
 import br.com.fiap.uniquesus.domain.exceptions.medico.CRMJaRegistradoException;
 import br.com.fiap.uniquesus.domain.exceptions.medico.MedicoNaoEncontradoPeloCRMException;
 import br.com.fiap.uniquesus.domain.exceptions.medico.MedicoNaoEncontradoPeloIdException;
@@ -61,6 +64,31 @@ public class GlobalExceptionHandler
     
     @ExceptionHandler(CRMJaRegistradoException.class)
     public ResponseEntity<Map<String, Object>> crmJaRegistradoExceptionHandler ( CRMJaRegistradoException ex )
+    {
+        Map<String, Object> body = new HashMap<>();
+        body.put( "message" , ex.getMessage() );
+        return ResponseEntity.status( HttpStatus.CONFLICT ).body( body );
+    }
+    
+    // Tratamento para Enfermeiro
+    @ExceptionHandler(EnfermeiroNaoEncontradoPeloIdException.class)
+    public ResponseEntity<Map<String, Object>> enfermeiroNaoEncontradoPeloIdExceptionHandler ( EnfermeiroNaoEncontradoPeloIdException ex )
+    {
+        Map<String, Object> body = new HashMap<>();
+        body.put( "message" , ex.getMessage() );
+        return ResponseEntity.status( HttpStatus.NOT_FOUND ).body( body );
+    }
+    
+    @ExceptionHandler(EnfermeiroNaoEncontradoPeloCorenException.class)
+    public ResponseEntity<Map<String, Object>> enfermeiroNaoEncontradoPeloCorenExceptionHandler ( EnfermeiroNaoEncontradoPeloCorenException ex )
+    {
+        Map<String, Object> body = new HashMap<>();
+        body.put( "message" , ex.getMessage() );
+        return ResponseEntity.status( HttpStatus.NOT_FOUND ).body( body );
+    }
+    
+    @ExceptionHandler(CorenJaRegistradoException.class)
+    public ResponseEntity<Map<String, Object>> corenJaRegistradoExceptionHandler ( CorenJaRegistradoException ex )
     {
         Map<String, Object> body = new HashMap<>();
         body.put( "message" , ex.getMessage() );

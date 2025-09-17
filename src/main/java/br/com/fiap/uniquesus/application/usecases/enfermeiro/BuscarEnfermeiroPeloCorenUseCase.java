@@ -4,8 +4,6 @@ import br.com.fiap.uniquesus.domain.entities.Enfermeiro;
 import br.com.fiap.uniquesus.domain.exceptions.enfermeiro.EnfermeiroNaoEncontradoPeloCorenException;
 import br.com.fiap.uniquesus.domain.gateways.EnfermeiroGateway;
 
-import java.util.Optional;
-
 public class BuscarEnfermeiroPeloCorenUseCase
 {
     private final EnfermeiroGateway enfermeiroGateway;
@@ -15,9 +13,9 @@ public class BuscarEnfermeiroPeloCorenUseCase
         this.enfermeiroGateway = enfermeiroGateway;
     }
     
-    public Optional<Enfermeiro> executar ( String coren )
+    public Enfermeiro executar ( String coren )
     {
-        return Optional.of( this.enfermeiroGateway.buscarEnfermeiroPeloCoren( coren )
-                                    .orElseThrow( () -> new EnfermeiroNaoEncontradoPeloCorenException( coren ) ) );
+        return this.enfermeiroGateway.buscarEnfermeiroPeloCoren( coren )
+                .orElseThrow( () -> new EnfermeiroNaoEncontradoPeloCorenException( coren ) );
     }
 }
