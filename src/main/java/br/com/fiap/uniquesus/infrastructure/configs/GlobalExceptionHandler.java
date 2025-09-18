@@ -1,5 +1,6 @@
 package br.com.fiap.uniquesus.infrastructure.configs;
 
+import br.com.fiap.uniquesus.domain.exceptions.atendimento.AtendimentoNaoEncontradoPeloIdException;
 import br.com.fiap.uniquesus.domain.exceptions.enfermeiro.CorenJaRegistradoException;
 import br.com.fiap.uniquesus.domain.exceptions.enfermeiro.EnfermeiroNaoEncontradoPeloCorenException;
 import br.com.fiap.uniquesus.domain.exceptions.enfermeiro.EnfermeiroNaoEncontradoPeloIdException;
@@ -93,6 +94,15 @@ public class GlobalExceptionHandler
         Map<String, Object> body = new HashMap<>();
         body.put( "message" , ex.getMessage() );
         return ResponseEntity.status( HttpStatus.CONFLICT ).body( body );
+    }
+    
+    // Tratamento para atendimento
+    @ExceptionHandler(AtendimentoNaoEncontradoPeloIdException.class)
+    public ResponseEntity<Map<String, Object>> atendimentoNaoEncontradoPeloIdExceptionHandler ( AtendimentoNaoEncontradoPeloIdException ex )
+    {
+        Map<String, Object> body = new HashMap<>();
+        body.put( "message" , ex.getMessage() );
+        return ResponseEntity.status( HttpStatus.NOT_FOUND ).body( body );
     }
     
     // Tratamento genérico para outras exceções

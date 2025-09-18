@@ -10,13 +10,9 @@ public interface AtendimentoGateway
 {
     Optional<Atendimento> buscarAtendimentoPeloId ( Long atendimentoId );
     
-    Atendimento criarAtendimento ( Atendimento atendimento );
+    Atendimento gravarAtendimento ( Atendimento atendimento );
     
-    Atendimento iniciarAtendimento ( Long pacienteId );
-    
-    Atendimento finalizarAtendimento ( Long atendimentoId );
+    void removerAtendimento ( Long atendimentoId );
     
     Page<Atendimento> buscarAtendimentos ( Pageable pageable );
-    
-    Atendimento atualizarAtendimento ( Atendimento atendimento );
 }

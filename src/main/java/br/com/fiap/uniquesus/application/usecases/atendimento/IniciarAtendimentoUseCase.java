@@ -22,8 +22,12 @@ public class IniciarAtendimentoUseCase
         Paciente pacienteEncontrado = this.pacienteGateway.buscarPacientePeloId( pacienteId )
                 .orElseThrow( () -> new PacienteNaoEncontradoPeloIdException( pacienteId ) );
         
-        Atendimento atendimento = new Atendimento( pacienteEncontrado );
+        Atendimento atendimento = new Atendimento();
+        atendimento.iniciarAtendimento( pacienteEncontrado );
         
-        return this.atendimentoGateway.criarAtendimento( atendimento );
+        Atendimento atendimentoCriado = this.atendimentoGateway.gravarAtendimento( atendimento );
+        atendimentoCriado.setPaciente(  pacienteEncontrado );
+        
+        return atendimentoCriado;
     }
 }

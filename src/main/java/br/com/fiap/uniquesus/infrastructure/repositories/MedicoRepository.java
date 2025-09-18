@@ -8,6 +8,4 @@ import java.util.Optional;
 public interface MedicoRepository extends JpaRepository<MedicoEntity, Long>
 {
     Optional<MedicoEntity> getMedicoByCrm ( String crm );
-    
-    Optional<MedicoEntity> getMedicoByMedicoId ( Long medicoId );
 }

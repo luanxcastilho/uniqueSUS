@@ -29,7 +29,7 @@ public class MedicoGatewayImpl implements MedicoGateway
     @Override
     public Optional<Medico> buscarMedicoPeloId ( Long medicoId )
     {
-        return this.medicoRepository.getMedicoByMedicoId( medicoId ).map( MedicoMapper::toDomain );
+        return this.medicoRepository.findById( medicoId ).map( MedicoMapper::toDomain );
     }
     
     @Override

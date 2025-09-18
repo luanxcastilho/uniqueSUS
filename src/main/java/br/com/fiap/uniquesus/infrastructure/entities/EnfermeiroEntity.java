@@ -3,7 +3,6 @@ package br.com.fiap.uniquesus.infrastructure.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CurrentTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
