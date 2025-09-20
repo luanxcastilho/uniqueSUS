@@ -5,7 +5,7 @@ import br.com.fiap.uniquesus.domain.exceptions.paciente.CPFJaRegistradoException
 import br.com.fiap.uniquesus.domain.exceptions.paciente.PacienteNaoEncontradoPeloIdException;
 import br.com.fiap.uniquesus.domain.gateways.PacienteGateway;
 
-public class AtualizarPacienteUseCase
+public class    AtualizarPacienteUseCase
 {
     private final PacienteGateway pacienteGateway;
     
