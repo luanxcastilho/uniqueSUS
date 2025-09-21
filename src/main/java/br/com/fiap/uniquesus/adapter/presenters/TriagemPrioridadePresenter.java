@@ -1,8 +1,8 @@
 package br.com.fiap.uniquesus.adapter.presenters;
 
 import br.com.fiap.uniquesus.domain.entities.TriagemPrioridade;
-import br.com.fiap.uniquesus.infrastructure.dtos.TriagemPrioridadeResponseDTO;
-import br.com.fiap.uniquesus.infrastructure.dtos.TriagemPrioridadeRequestDTO;
+import br.com.fiap.uniquesus.infrastructure.dtos.triagemPrioridade.TriagemPrioridadeResponseDTO;
+import br.com.fiap.uniquesus.infrastructure.dtos.triagemPrioridade.TriagemPrioridadeRequestDTO;
 import org.springframework.data.domain.Page;
 
 public class TriagemPrioridadePresenter

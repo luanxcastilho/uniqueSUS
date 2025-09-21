@@ -1,8 +1,8 @@
 package br.com.fiap.uniquesus.adapter.presenters;
 
 import br.com.fiap.uniquesus.domain.entities.Paciente;
-import br.com.fiap.uniquesus.infrastructure.dtos.PacienteRequestDTO;
-import br.com.fiap.uniquesus.infrastructure.dtos.PacienteResponseDTO;
+import br.com.fiap.uniquesus.infrastructure.dtos.paciente.PacienteRequestDTO;
+import br.com.fiap.uniquesus.infrastructure.dtos.paciente.PacienteResponseDTO;
 import org.springframework.data.domain.Page;
 
 public class PacientePresenter

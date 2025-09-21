@@ -1,8 +1,8 @@
 package br.com.fiap.uniquesus.adapter.presenters;
 
 import br.com.fiap.uniquesus.domain.entities.Medico;
-import br.com.fiap.uniquesus.infrastructure.dtos.MedicoRequestDTO;
-import br.com.fiap.uniquesus.infrastructure.dtos.MedicoResponseDTO;
+import br.com.fiap.uniquesus.infrastructure.dtos.medico.MedicoRequestDTO;
+import br.com.fiap.uniquesus.infrastructure.dtos.medico.MedicoResponseDTO;
 import org.springframework.data.domain.Page;
 
 public class MedicoPresenter

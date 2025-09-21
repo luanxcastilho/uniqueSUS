@@ -1,4 +1,4 @@
-package br.com.fiap.uniquesus.infrastructure.dtos;
+package br.com.fiap.uniquesus.infrastructure.dtos.paciente;
 
 import lombok.Data;
 

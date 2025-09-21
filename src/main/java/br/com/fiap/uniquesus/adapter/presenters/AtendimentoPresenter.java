@@ -2,8 +2,8 @@ package br.com.fiap.uniquesus.adapter.presenters;
 
 import br.com.fiap.uniquesus.domain.entities.Atendimento;
 import br.com.fiap.uniquesus.domain.entities.Paciente;
-import br.com.fiap.uniquesus.infrastructure.dtos.AtendimentoRequestDTO;
-import br.com.fiap.uniquesus.infrastructure.dtos.AtendimentoResponseDTO;
+import br.com.fiap.uniquesus.infrastructure.dtos.atendimento.AtendimentoRequestDTO;
+import br.com.fiap.uniquesus.infrastructure.dtos.atendimento.AtendimentoResponseDTO;
 import org.springframework.data.domain.Page;
 
 public class AtendimentoPresenter

@@ -1,8 +1,8 @@
 package br.com.fiap.uniquesus.adapter.presenters;
 
 import br.com.fiap.uniquesus.domain.entities.Enfermeiro;
-import br.com.fiap.uniquesus.infrastructure.dtos.EnfermeiroRequestDTO;
-import br.com.fiap.uniquesus.infrastructure.dtos.EnfermeiroResponseDTO;
+import br.com.fiap.uniquesus.infrastructure.dtos.enfermeiro.EnfermeiroRequestDTO;
+import br.com.fiap.uniquesus.infrastructure.dtos.enfermeiro.EnfermeiroResponseDTO;
 import org.springframework.data.domain.Page;
 
 public class EnfermeiroPresenter

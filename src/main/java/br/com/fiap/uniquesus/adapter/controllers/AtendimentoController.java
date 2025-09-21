@@ -6,7 +6,7 @@ import br.com.fiap.uniquesus.application.usecases.atendimento.BuscarAtendimentos
 import br.com.fiap.uniquesus.application.usecases.atendimento.FinalizarAtendimentoUseCase;
 import br.com.fiap.uniquesus.application.usecases.atendimento.IniciarAtendimentoUseCase;
 import br.com.fiap.uniquesus.domain.entities.Atendimento;
-import br.com.fiap.uniquesus.infrastructure.dtos.AtendimentoResponseDTO;
+import br.com.fiap.uniquesus.infrastructure.dtos.atendimento.AtendimentoResponseDTO;
 import br.com.fiap.uniquesus.infrastructure.dtos.PageResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
