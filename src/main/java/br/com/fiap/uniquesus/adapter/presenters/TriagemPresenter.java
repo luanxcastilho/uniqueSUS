@@ -34,7 +34,7 @@ public class TriagemPresenter
     {
         Triagem triagem = new Triagem();
         
-        TriagemPrioridade  triagemPrioridade = new TriagemPrioridade();
+        TriagemPrioridade triagemPrioridade = new TriagemPrioridade();
         triagemPrioridade.setTriagemPrioridadeId( finalizarTriagemRequestDTO.getTriagemPrioridadeId() );
         
         triagem.setTriagemPrioridade( triagemPrioridade );
@@ -43,7 +43,7 @@ public class TriagemPresenter
         return triagem;
     }
     
-    public static Triagem toDomain ( Long triagemId, FinalizarTriagemRequestDTO finalizarTriagemRequestDTO )
+    public static Triagem toDomain ( Long triagemId , FinalizarTriagemRequestDTO finalizarTriagemRequestDTO )
     {
         Triagem triagem = toDomain( finalizarTriagemRequestDTO );
         triagem.setTriagemId( triagemId );
