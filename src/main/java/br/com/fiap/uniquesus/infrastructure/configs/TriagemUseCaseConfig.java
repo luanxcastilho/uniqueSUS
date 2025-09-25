@@ -1,9 +1,6 @@
 package br.com.fiap.uniquesus.infrastructure.configs;
 
-import br.com.fiap.uniquesus.application.usecases.triagem.BuscarTriagemPeloIdUseCase;
-import br.com.fiap.uniquesus.application.usecases.triagem.BuscarTriagensUseCase;
-import br.com.fiap.uniquesus.application.usecases.triagem.FinalizarTriagemUseCase;
-import br.com.fiap.uniquesus.application.usecases.triagem.IniciarTriagemUseCase;
+import br.com.fiap.uniquesus.application.usecases.triagem.*;
 import br.com.fiap.uniquesus.domain.gateways.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,4 +32,8 @@ public class TriagemUseCaseConfig
         return new BuscarTriagemPeloIdUseCase( triagemGateway, atendimentoGateway, enfermeiroGateway, triagemPrioridadeGateway, pacienteGateway );
     }
     
+    @Bean
+    public BuscarPosicaoNaFilaDeTriagemUseCase buscarPosicaoNaFilaDeTriagemUseCase ( TriagemGateway triagemGateway , PacienteGateway pacienteGateway ){
+        return new BuscarPosicaoNaFilaDeTriagemUseCase( triagemGateway, pacienteGateway );
+    }
 }

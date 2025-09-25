@@ -1,13 +1,11 @@
 package br.com.fiap.uniquesus.adapter.controllers;
 
 import br.com.fiap.uniquesus.adapter.presenters.TriagemPresenter;
-import br.com.fiap.uniquesus.application.usecases.triagem.BuscarTriagemPeloIdUseCase;
-import br.com.fiap.uniquesus.application.usecases.triagem.BuscarTriagensUseCase;
-import br.com.fiap.uniquesus.application.usecases.triagem.FinalizarTriagemUseCase;
-import br.com.fiap.uniquesus.application.usecases.triagem.IniciarTriagemUseCase;
+import br.com.fiap.uniquesus.application.usecases.triagem.*;
 import br.com.fiap.uniquesus.domain.entities.Triagem;
 import br.com.fiap.uniquesus.infrastructure.dtos.triagem.FinalizarTriagemRequestDTO;
 import br.com.fiap.uniquesus.infrastructure.dtos.triagem.IniciarTriagemRequestDTO;
+import br.com.fiap.uniquesus.infrastructure.dtos.triagem.PosicaoNaFilaResponseDTO;
 import br.com.fiap.uniquesus.infrastructure.dtos.triagem.TriagemResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,17 +24,19 @@ public class TriagemController
 {
     private final Logger logger = LoggerFactory.getLogger( TriagemController.class );
     
-    private final IniciarTriagemUseCase      iniciarTriagemUseCase;
-    private final FinalizarTriagemUseCase    finalizarAtendimentoUseCase;
-    private final BuscarTriagensUseCase      buscarTriagensUseCase;
-    private final BuscarTriagemPeloIdUseCase buscarTriagemPeloIdUseCase;
+    private final IniciarTriagemUseCase               iniciarTriagemUseCase;
+    private final FinalizarTriagemUseCase             finalizarAtendimentoUseCase;
+    private final BuscarTriagensUseCase               buscarTriagensUseCase;
+    private final BuscarTriagemPeloIdUseCase          buscarTriagemPeloIdUseCase;
+    private final BuscarPosicaoNaFilaDeTriagemUseCase buscarPosicaoNaFilaDeTriagemUseCase;
     
-    public TriagemController ( IniciarTriagemUseCase iniciarTriagemUseCase , FinalizarTriagemUseCase finalizarAtendimentoUseCase , BuscarTriagensUseCase buscarTriagensUseCase , BuscarTriagemPeloIdUseCase buscarTriagemPeloIdUseCase )
+    public TriagemController ( IniciarTriagemUseCase iniciarTriagemUseCase , FinalizarTriagemUseCase finalizarAtendimentoUseCase , BuscarTriagensUseCase buscarTriagensUseCase , BuscarTriagemPeloIdUseCase buscarTriagemPeloIdUseCase , BuscarPosicaoNaFilaDeTriagemUseCase buscarPosicaoNaFilaDeTriagemUseCase )
     {
-        this.iniciarTriagemUseCase       = iniciarTriagemUseCase;
-        this.finalizarAtendimentoUseCase = finalizarAtendimentoUseCase;
-        this.buscarTriagensUseCase       = buscarTriagensUseCase;
-        this.buscarTriagemPeloIdUseCase  = buscarTriagemPeloIdUseCase;
+        this.iniciarTriagemUseCase               = iniciarTriagemUseCase;
+        this.finalizarAtendimentoUseCase         = finalizarAtendimentoUseCase;
+        this.buscarTriagensUseCase               = buscarTriagensUseCase;
+        this.buscarTriagemPeloIdUseCase          = buscarTriagemPeloIdUseCase;
+        this.buscarPosicaoNaFilaDeTriagemUseCase = buscarPosicaoNaFilaDeTriagemUseCase;
     }
     
     
@@ -64,7 +64,7 @@ public class TriagemController
             @RequestBody
             FinalizarTriagemRequestDTO finalizarTriagemRequestDTO )
     {
-        Triagem triagem = this.finalizarAtendimentoUseCase.executar( triagemId, finalizarTriagemRequestDTO );
+        Triagem triagem = this.finalizarAtendimentoUseCase.executar( triagemId , finalizarTriagemRequestDTO );
         TriagemResponseDTO triagemResponseDTO = TriagemPresenter.toDTO( triagem );
         
         return ResponseEntity.status( HttpStatus.OK ).body( triagemResponseDTO );
@@ -88,5 +88,17 @@ public class TriagemController
         Triagem triagemEncontrada = this.buscarTriagemPeloIdUseCase.executar( triagemId );
         TriagemResponseDTO triagemResponseDTO = TriagemPresenter.toDTO( triagemEncontrada );
         return ResponseEntity.status( HttpStatus.OK ).body( triagemResponseDTO );
+    }
+    
+    @GetMapping("/fila/{pacienteId}")
+    public ResponseEntity<PosicaoNaFilaResponseDTO> buscarPosicaoNaFila (
+            @PathVariable
+            Long pacienteId )
+    {
+        var output = this.buscarPosicaoNaFilaDeTriagemUseCase.executar( pacienteId );
+        
+        PosicaoNaFilaResponseDTO posicaoNaFilaResponseDTO = new PosicaoNaFilaResponseDTO( output.pacienteId() , output.posicaoAtual() , output.totalFila() );
+        
+        return ResponseEntity.status( HttpStatus.OK ).body( posicaoNaFilaResponseDTO );
     }
 }

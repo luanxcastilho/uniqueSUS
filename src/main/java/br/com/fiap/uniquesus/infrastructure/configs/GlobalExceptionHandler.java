@@ -1,6 +1,7 @@
 package br.com.fiap.uniquesus.infrastructure.configs;
 
 import br.com.fiap.uniquesus.domain.exceptions.atendimento.AtendimentoNaoEncontradoPeloIdException;
+import br.com.fiap.uniquesus.domain.exceptions.atendimento.AtendimentoNaoEncontradoPeloPacienteIdException;
 import br.com.fiap.uniquesus.domain.exceptions.consulta.ConsultaNaoEncontradaPeloIdException;
 import br.com.fiap.uniquesus.domain.exceptions.enfermeiro.CorenJaRegistradoException;
 import br.com.fiap.uniquesus.domain.exceptions.enfermeiro.EnfermeiroNaoEncontradoPeloCorenException;
@@ -11,6 +12,7 @@ import br.com.fiap.uniquesus.domain.exceptions.medico.MedicoNaoEncontradoPeloIdE
 import br.com.fiap.uniquesus.domain.exceptions.paciente.CPFJaRegistradoException;
 import br.com.fiap.uniquesus.domain.exceptions.paciente.PacienteNaoEncontradoPeloCpfException;
 import br.com.fiap.uniquesus.domain.exceptions.paciente.PacienteNaoEncontradoPeloIdException;
+import br.com.fiap.uniquesus.domain.exceptions.triagem.PacienteNaoEstaNaFilaDaTriagemException;
 import br.com.fiap.uniquesus.domain.exceptions.triagem.TriagemNaoEncontradaPeloIdException;
 import br.com.fiap.uniquesus.domain.exceptions.triagemPrioridade.TriagemPrioridadeNaoEncontradaPeloIdException;
 import org.springframework.http.HttpStatus;
@@ -108,6 +110,14 @@ public class GlobalExceptionHandler
         return ResponseEntity.status( HttpStatus.NOT_FOUND ).body( body );
     }
     
+    @ExceptionHandler(AtendimentoNaoEncontradoPeloPacienteIdException.class)
+    public ResponseEntity<Map<String, Object>> atendimentoNaoEncontradoPeloPacienteIdExceptionHandler ( AtendimentoNaoEncontradoPeloPacienteIdException ex )
+    {
+        Map<String, Object> body = new HashMap<>();
+        body.put( "message" , ex.getMessage() );
+        return ResponseEntity.status( HttpStatus.NOT_FOUND ).body( body );
+    }
+    
     // Tratamento para Prioridades de triagem
     @ExceptionHandler(TriagemPrioridadeNaoEncontradaPeloIdException.class)
     public ResponseEntity<Map<String, Object>> triagemPrioridadeNaoEncontradaPeloIdExceptionHandler ( TriagemPrioridadeNaoEncontradaPeloIdException ex )
@@ -120,6 +130,14 @@ public class GlobalExceptionHandler
     // Tratamento para triagem
     @ExceptionHandler(TriagemNaoEncontradaPeloIdException.class)
     public ResponseEntity<Map<String, Object>> triagemNaoEncontradaPeloIdExceptionHandler ( TriagemNaoEncontradaPeloIdException ex )
+    {
+        Map<String, Object> body = new HashMap<>();
+        body.put( "message" , ex.getMessage() );
+        return ResponseEntity.status( HttpStatus.NOT_FOUND ).body( body );
+    }
+    
+    @ExceptionHandler(PacienteNaoEstaNaFilaDaTriagemException.class)
+    public ResponseEntity<Map<String, Object>> pacienteNaoEstaNaFilaDaTriagemExceptionHandler ( PacienteNaoEstaNaFilaDaTriagemException ex )
     {
         Map<String, Object> body = new HashMap<>();
         body.put( "message" , ex.getMessage() );

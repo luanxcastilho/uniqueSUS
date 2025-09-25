@@ -1,9 +1,6 @@
 package br.com.fiap.uniquesus.infrastructure.configs;
 
-import br.com.fiap.uniquesus.application.usecases.atendimento.BuscarAtendimentoPeloIdUseCase;
-import br.com.fiap.uniquesus.application.usecases.atendimento.BuscarAtendimentosUseCase;
-import br.com.fiap.uniquesus.application.usecases.atendimento.FinalizarAtendimentoUseCase;
-import br.com.fiap.uniquesus.application.usecases.atendimento.IniciarAtendimentoUseCase;
+import br.com.fiap.uniquesus.application.usecases.atendimento.*;
 import br.com.fiap.uniquesus.domain.gateways.AtendimentoGateway;
 import br.com.fiap.uniquesus.domain.gateways.PacienteGateway;
 import org.springframework.context.annotation.Bean;
@@ -35,4 +32,11 @@ public class AtendimentoUseCaseConfig
     {
         return new BuscarAtendimentoPeloIdUseCase( atendimentoGateway, pacienteGateway );
     }
+    
+    @Bean
+    public BuscarAtendimentoPeloPacienteIdUseCase buscarAtendimentoPeloPacienteIdUseCase ( AtendimentoGateway atendimentoGateway, PacienteGateway pacienteGateway )
+    {
+        return new BuscarAtendimentoPeloPacienteIdUseCase( atendimentoGateway, pacienteGateway );
+    }
+    
 }

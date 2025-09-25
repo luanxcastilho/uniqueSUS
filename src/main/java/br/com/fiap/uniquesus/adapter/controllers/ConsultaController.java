@@ -56,7 +56,7 @@ public class ConsultaController
         return ResponseEntity.status( HttpStatus.OK ).body( consultaResponseDTO );
     }
     
-    @PostMapping("/finalizar/{consultaId}")
+    @PutMapping("/finalizar/{consultaId}")
     @Operation(summary = "Finaliza uma consulta pelo ID.")
     public ResponseEntity<ConsultaResponseDTO> finalizarConsulta (
             @PathVariable

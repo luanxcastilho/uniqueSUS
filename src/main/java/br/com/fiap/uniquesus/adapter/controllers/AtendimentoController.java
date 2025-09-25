@@ -1,10 +1,7 @@
 package br.com.fiap.uniquesus.adapter.controllers;
 
 import br.com.fiap.uniquesus.adapter.presenters.AtendimentoPresenter;
-import br.com.fiap.uniquesus.application.usecases.atendimento.BuscarAtendimentoPeloIdUseCase;
-import br.com.fiap.uniquesus.application.usecases.atendimento.BuscarAtendimentosUseCase;
-import br.com.fiap.uniquesus.application.usecases.atendimento.FinalizarAtendimentoUseCase;
-import br.com.fiap.uniquesus.application.usecases.atendimento.IniciarAtendimentoUseCase;
+import br.com.fiap.uniquesus.application.usecases.atendimento.*;
 import br.com.fiap.uniquesus.domain.entities.Atendimento;
 import br.com.fiap.uniquesus.infrastructure.dtos.atendimento.AtendimentoResponseDTO;
 import br.com.fiap.uniquesus.infrastructure.dtos.PageResponse;
@@ -29,13 +26,15 @@ public class AtendimentoController
     private final FinalizarAtendimentoUseCase    finalizarAtendimentoUseCase;
     private final BuscarAtendimentosUseCase      buscarAtendimentosUseCase;
     private final BuscarAtendimentoPeloIdUseCase buscarAtendimentoPeloIdUseCase;
+    private final BuscarAtendimentoPeloPacienteIdUseCase buscarAtendimentoPeloPacienteIdUseCase;
     
-    public AtendimentoController ( IniciarAtendimentoUseCase iniciarAtendimentoUseCase , FinalizarAtendimentoUseCase finalizarAtendimentoUseCase , BuscarAtendimentosUseCase buscarAtendimentosUseCase , BuscarAtendimentoPeloIdUseCase buscarAtendimentoPeloIdUseCase )
+    public AtendimentoController ( IniciarAtendimentoUseCase iniciarAtendimentoUseCase , FinalizarAtendimentoUseCase finalizarAtendimentoUseCase , BuscarAtendimentosUseCase buscarAtendimentosUseCase , BuscarAtendimentoPeloIdUseCase buscarAtendimentoPeloIdUseCase , BuscarAtendimentoPeloPacienteIdUseCase buscarAtendimentoPeloPacienteIdUseCase )
     {
         this.iniciarAtendimentoUseCase      = iniciarAtendimentoUseCase;
         this.finalizarAtendimentoUseCase    = finalizarAtendimentoUseCase;
         this.buscarAtendimentosUseCase      = buscarAtendimentosUseCase;
         this.buscarAtendimentoPeloIdUseCase = buscarAtendimentoPeloIdUseCase;
+        this.buscarAtendimentoPeloPacienteIdUseCase = buscarAtendimentoPeloPacienteIdUseCase;
     }
     
     @PostMapping("/iniciar/{pacienteId}")
@@ -77,6 +76,17 @@ public class AtendimentoController
             Long atendimentoId )
     {
         Atendimento atendimento = this.buscarAtendimentoPeloIdUseCase.executar( atendimentoId );
+        AtendimentoResponseDTO atendimentoResponseDTO = AtendimentoPresenter.toDTO( atendimento );
+        return ResponseEntity.status( HttpStatus.OK ).body( atendimentoResponseDTO );
+    }
+    
+    @GetMapping("/paciente/{pacienteId}")
+    @Operation(summary = "Busca um atendimento pelo ID do paciente.")
+    public ResponseEntity<AtendimentoResponseDTO> buscarAtendimentoPeloPacienteId (
+            @PathVariable
+            Long pacienteId )
+    {
+        Atendimento atendimento = this.buscarAtendimentoPeloPacienteIdUseCase.executar( pacienteId );
         AtendimentoResponseDTO atendimentoResponseDTO = AtendimentoPresenter.toDTO( atendimento );
         return ResponseEntity.status( HttpStatus.OK ).body( atendimentoResponseDTO );
     }

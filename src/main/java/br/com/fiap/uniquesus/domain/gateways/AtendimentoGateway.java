@@ -15,4 +15,6 @@ public interface AtendimentoGateway
     void removerAtendimento ( Long atendimentoId );
     
     Page<Atendimento> buscarAtendimentos ( Pageable pageable );
+    
+    Optional<Atendimento> buscarAtendimentoPeloPacienteId ( Long pacienteId );
 }
