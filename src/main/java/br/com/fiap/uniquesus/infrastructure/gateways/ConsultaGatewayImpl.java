@@ -1,8 +1,12 @@
 package br.com.fiap.uniquesus.infrastructure.gateways;
 
 import br.com.fiap.uniquesus.domain.entities.Consulta;
+import br.com.fiap.uniquesus.domain.exceptions.consulta.PacienteNaoEstaNaFilaDeConsultaException;
+import br.com.fiap.uniquesus.domain.exceptions.triagem.PacienteNaoEstaNaFilaDaTriagemException;
 import br.com.fiap.uniquesus.domain.gateways.ConsultaGateway;
 import br.com.fiap.uniquesus.infrastructure.mappers.ConsultaMapper;
+import br.com.fiap.uniquesus.infrastructure.projections.PosicaoNaFilaDeConsultaProjection;
+import br.com.fiap.uniquesus.infrastructure.projections.PosicaoNaFilaDeTriagemProjection;
 import br.com.fiap.uniquesus.infrastructure.repositories.ConsultaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,5 +46,17 @@ public class ConsultaGatewayImpl implements ConsultaGateway
     public Page<Consulta> buscarConsultas ( Pageable pageable )
     {
         return this.consultaRepository.findAll( pageable ).map( ConsultaMapper::toDomain );
+    }
+    
+    @Override
+    public PosicaoNaFilaDeConsultaProjection buscarPosicaoNaFilaDeConsulta ( Long pacienteId )
+    {
+        PosicaoNaFilaDeConsultaProjection posicaoNaFilaDeConsultaProjection = this.consultaRepository.getPosicaoNaFilaDeConsulta( pacienteId );
+        
+        if (posicaoNaFilaDeConsultaProjection == null)
+        {
+            throw new PacienteNaoEstaNaFilaDeConsultaException( pacienteId );
+        }
+        return posicaoNaFilaDeConsultaProjection;
     }
 }

@@ -4,7 +4,7 @@ import br.com.fiap.uniquesus.domain.entities.Triagem;
 import br.com.fiap.uniquesus.domain.exceptions.triagem.PacienteNaoEstaNaFilaDaTriagemException;
 import br.com.fiap.uniquesus.domain.gateways.TriagemGateway;
 import br.com.fiap.uniquesus.infrastructure.mappers.TriagemMapper;
-import br.com.fiap.uniquesus.infrastructure.projections.PosicaoNaFilaProjection;
+import br.com.fiap.uniquesus.infrastructure.projections.PosicaoNaFilaDeTriagemProjection;
 import br.com.fiap.uniquesus.infrastructure.repositories.TriagemRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,15 +47,15 @@ public class TriagemGatewayImpl implements TriagemGateway
     }
     
     @Override
-    public PosicaoNaFilaProjection buscarPosicaoNaFilaDeTriagem ( Long pacienteId )
+    public PosicaoNaFilaDeTriagemProjection buscarPosicaoNaFilaDeTriagem ( Long pacienteId )
     {
-        PosicaoNaFilaProjection posicaoNaFilaProjectionEncontrada = this.triagemRepository.getPosicaoNaFilaDeTriagem( pacienteId );
+        PosicaoNaFilaDeTriagemProjection posicaoNaFilaDeTriagemProjectionEncontrada = this.triagemRepository.getPosicaoNaFilaDeTriagem( pacienteId );
         
-        if (posicaoNaFilaProjectionEncontrada == null)
+        if (posicaoNaFilaDeTriagemProjectionEncontrada == null)
         {
             throw new PacienteNaoEstaNaFilaDaTriagemException( pacienteId );
         }
-        return posicaoNaFilaProjectionEncontrada;
+        return posicaoNaFilaDeTriagemProjectionEncontrada;
     }
     
     

@@ -1,7 +1,7 @@
 package br.com.fiap.uniquesus.infrastructure.repositories;
 
 import br.com.fiap.uniquesus.infrastructure.entities.TriagemEntity;
-import br.com.fiap.uniquesus.infrastructure.projections.PosicaoNaFilaProjection;
+import br.com.fiap.uniquesus.infrastructure.projections.PosicaoNaFilaDeTriagemProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,5 +27,5 @@ where 1=1
   and not exists ( select 1
                    from triagem xa
                    where a.id_atendimento = xa.id_atendimento )""", nativeQuery = true)
-    PosicaoNaFilaProjection getPosicaoNaFilaDeTriagem ( @Param("pacienteId") Long pacienteId );
+    PosicaoNaFilaDeTriagemProjection getPosicaoNaFilaDeTriagem ( @Param("pacienteId") Long pacienteId );
 }

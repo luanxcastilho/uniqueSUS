@@ -1,6 +1,6 @@
 package br.com.fiap.uniquesus.infrastructure.projections;
 
-public interface PosicaoNaFilaProjection
+public interface PosicaoNaFilaDeTriagemProjection
 {
     Long getPacienteId ();
     

@@ -5,7 +5,7 @@ import br.com.fiap.uniquesus.application.usecases.triagem.*;
 import br.com.fiap.uniquesus.domain.entities.Triagem;
 import br.com.fiap.uniquesus.infrastructure.dtos.triagem.FinalizarTriagemRequestDTO;
 import br.com.fiap.uniquesus.infrastructure.dtos.triagem.IniciarTriagemRequestDTO;
-import br.com.fiap.uniquesus.infrastructure.dtos.triagem.PosicaoNaFilaResponseDTO;
+import br.com.fiap.uniquesus.infrastructure.dtos.triagem.PosicaoNaFilaDeTriagemResponseDTO;
 import br.com.fiap.uniquesus.infrastructure.dtos.triagem.TriagemResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -91,14 +91,14 @@ public class TriagemController
     }
     
     @GetMapping("/fila/{pacienteId}")
-    public ResponseEntity<PosicaoNaFilaResponseDTO> buscarPosicaoNaFila (
+    public ResponseEntity<PosicaoNaFilaDeTriagemResponseDTO> buscarPosicaoNaFila (
             @PathVariable
             Long pacienteId )
     {
         var output = this.buscarPosicaoNaFilaDeTriagemUseCase.executar( pacienteId );
         
-        PosicaoNaFilaResponseDTO posicaoNaFilaResponseDTO = new PosicaoNaFilaResponseDTO( output.pacienteId() , output.posicaoAtual() , output.totalFila() );
+        PosicaoNaFilaDeTriagemResponseDTO posicaoNaFilaDeTriagemResponseDTO = new PosicaoNaFilaDeTriagemResponseDTO( output.pacienteId() , output.posicaoAtual() , output.totalFila() );
         
-        return ResponseEntity.status( HttpStatus.OK ).body( posicaoNaFilaResponseDTO );
+        return ResponseEntity.status( HttpStatus.OK ).body( posicaoNaFilaDeTriagemResponseDTO );
     }
 }

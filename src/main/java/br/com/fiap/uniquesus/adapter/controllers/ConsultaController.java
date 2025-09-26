@@ -1,15 +1,14 @@
 package br.com.fiap.uniquesus.adapter.controllers;
 
 import br.com.fiap.uniquesus.adapter.presenters.ConsultaPresenter;
-import br.com.fiap.uniquesus.application.usecases.consulta.BuscarConsultaPeloIdUseCase;
-import br.com.fiap.uniquesus.application.usecases.consulta.BuscarConsultasUseCase;
-import br.com.fiap.uniquesus.application.usecases.consulta.FinalizarConsultaUseCase;
-import br.com.fiap.uniquesus.application.usecases.consulta.IniciarConsultaUseCase;
+import br.com.fiap.uniquesus.application.outputs.PosicaoNaFilaDeConsultaOutput;
+import br.com.fiap.uniquesus.application.usecases.consulta.*;
 import br.com.fiap.uniquesus.domain.entities.Consulta;
 import br.com.fiap.uniquesus.infrastructure.dtos.PageResponse;
 import br.com.fiap.uniquesus.infrastructure.dtos.consulta.ConsultaResponseDTO;
 import br.com.fiap.uniquesus.infrastructure.dtos.consulta.FinalizarConsultaRequestDTO;
 import br.com.fiap.uniquesus.infrastructure.dtos.consulta.IniciarConsultaRequestDTO;
+import br.com.fiap.uniquesus.infrastructure.dtos.consulta.PosicaoNaFilaDeConsultaResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
@@ -22,35 +21,36 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/consultas")
-@Tag( name = "Consultas" , description = "Gerenciamento de consultas." )
+@Tag(name = "Consultas", description = "Gerenciamento de consultas.")
 public class ConsultaController
 {
     private final Logger logger = LoggerFactory.getLogger( ConsultaController.class );
     
-    private final IniciarConsultaUseCase   iniciarConsultaUseCase;
-    private final FinalizarConsultaUseCase finalizarConsultaUseCase;
-    private final BuscarConsultasUseCase   buscarConsultasUseCase;
-    private final BuscarConsultaPeloIdUseCase buscarConsultaPeloIdUseCase;
+    private final IniciarConsultaUseCase               iniciarConsultaUseCase;
+    private final FinalizarConsultaUseCase             finalizarConsultaUseCase;
+    private final BuscarConsultasUseCase               buscarConsultasUseCase;
+    private final BuscarConsultaPeloIdUseCase          buscarConsultaPeloIdUseCase;
+    private final BuscarPosicaoNaFilaDeConsultaUseCase buscarPosicaoNaFilaDeConsultaUseCase;
     
-    public ConsultaController ( IniciarConsultaUseCase iniciarConsultaUseCase , FinalizarConsultaUseCase finalizarConsultaUseCase , BuscarConsultasUseCase buscarConsultasUseCase , BuscarConsultaPeloIdUseCase buscarConsultaPeloIdUseCase )
+    public ConsultaController ( IniciarConsultaUseCase iniciarConsultaUseCase , FinalizarConsultaUseCase finalizarConsultaUseCase , BuscarConsultasUseCase buscarConsultasUseCase , BuscarConsultaPeloIdUseCase buscarConsultaPeloIdUseCase , BuscarPosicaoNaFilaDeConsultaUseCase buscarPosicaoNaFilaDeConsultaUseCase )
     {
-        this.iniciarConsultaUseCase      = iniciarConsultaUseCase;
-        this.finalizarConsultaUseCase    = finalizarConsultaUseCase;
-        this.buscarConsultasUseCase      = buscarConsultasUseCase;
-        this.buscarConsultaPeloIdUseCase = buscarConsultaPeloIdUseCase;
+        this.iniciarConsultaUseCase               = iniciarConsultaUseCase;
+        this.finalizarConsultaUseCase             = finalizarConsultaUseCase;
+        this.buscarConsultasUseCase               = buscarConsultasUseCase;
+        this.buscarConsultaPeloIdUseCase          = buscarConsultaPeloIdUseCase;
+        this.buscarPosicaoNaFilaDeConsultaUseCase = buscarPosicaoNaFilaDeConsultaUseCase;
     }
     
     @PostMapping("/iniciar/{atendimentoId}")
     @Operation(summary = "Inicia uma consulta de um atendimento.")
-    public ResponseEntity<ConsultaResponseDTO> iniciarConsulta
-            (
+    public ResponseEntity<ConsultaResponseDTO> iniciarConsulta (
             @RequestBody
             IniciarConsultaRequestDTO iniciarConsultaRequestDTO ,
             
             @PathVariable
             Long atendimentoId )
     {
-        Consulta consulta = this.iniciarConsultaUseCase.executar( atendimentoId, iniciarConsultaRequestDTO.getMedicoId() );
+        Consulta consulta = this.iniciarConsultaUseCase.executar( atendimentoId , iniciarConsultaRequestDTO.getMedicoId() );
         ConsultaResponseDTO consultaResponseDTO = ConsultaPresenter.toDTO( consulta );
         
         return ResponseEntity.status( HttpStatus.OK ).body( consultaResponseDTO );
@@ -60,10 +60,11 @@ public class ConsultaController
     @Operation(summary = "Finaliza uma consulta pelo ID.")
     public ResponseEntity<ConsultaResponseDTO> finalizarConsulta (
             @PathVariable
-            Long consultaId,
-            @RequestBody FinalizarConsultaRequestDTO finalizarConsultaRequestDTO )
+            Long consultaId ,
+            @RequestBody
+            FinalizarConsultaRequestDTO finalizarConsultaRequestDTO )
     {
-        Consulta consulta = this.finalizarConsultaUseCase.executar( consultaId, finalizarConsultaRequestDTO.getDiagnostico() );
+        Consulta consulta = this.finalizarConsultaUseCase.executar( consultaId , finalizarConsultaRequestDTO.getDiagnostico() );
         ConsultaResponseDTO consultaResponseDTO = ConsultaPresenter.toDTO( consulta );
         
         return ResponseEntity.status( HttpStatus.OK ).body( consultaResponseDTO );
@@ -73,7 +74,8 @@ public class ConsultaController
     @Operation(summary = "Busca todas as consultas.")
     public ResponseEntity<PageResponse<ConsultaResponseDTO>> buscarConsultas ( Pageable pageable )
     {
-        Page<ConsultaResponseDTO> consultas = this.buscarConsultasUseCase.executar( pageable ).map( ConsultaPresenter::toDTO );
+        Page<ConsultaResponseDTO> consultas = this.buscarConsultasUseCase.executar( pageable )
+                .map( ConsultaPresenter::toDTO );
         return ResponseEntity.status( HttpStatus.OK ).body( PageResponse.from( consultas ) );
     }
     
@@ -86,5 +88,17 @@ public class ConsultaController
         Consulta consulta = this.buscarConsultaPeloIdUseCase.executar( consultaId );
         ConsultaResponseDTO consultaResponseDTO = ConsultaPresenter.toDTO( consulta );
         return ResponseEntity.status( HttpStatus.OK ).body( consultaResponseDTO );
+    }
+    
+    @GetMapping("/fila/{pacienteId}")
+    public ResponseEntity<PosicaoNaFilaDeConsultaResponseDTO> buscarPosicaoNaFila (
+            @PathVariable
+            Long pacienteId )
+    {
+        PosicaoNaFilaDeConsultaOutput posicaoNaFilaDeConsultaOutput = this.buscarPosicaoNaFilaDeConsultaUseCase.executar( pacienteId );
+        
+        PosicaoNaFilaDeConsultaResponseDTO posicaoNaFilaDeConsultaResponseDTO = new PosicaoNaFilaDeConsultaResponseDTO( posicaoNaFilaDeConsultaOutput.pacienteId() , posicaoNaFilaDeConsultaOutput.posicaoAtual() , posicaoNaFilaDeConsultaOutput.totalFila() );
+        
+        return ResponseEntity.status( HttpStatus.OK ).body( posicaoNaFilaDeConsultaResponseDTO );
     }
 }

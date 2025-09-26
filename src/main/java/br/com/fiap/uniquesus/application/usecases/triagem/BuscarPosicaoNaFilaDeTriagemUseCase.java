@@ -5,7 +5,7 @@ import br.com.fiap.uniquesus.domain.entities.Paciente;
 import br.com.fiap.uniquesus.domain.exceptions.paciente.PacienteNaoEncontradoPeloIdException;
 import br.com.fiap.uniquesus.domain.gateways.PacienteGateway;
 import br.com.fiap.uniquesus.domain.gateways.TriagemGateway;
-import br.com.fiap.uniquesus.infrastructure.projections.PosicaoNaFilaProjection;
+import br.com.fiap.uniquesus.infrastructure.projections.PosicaoNaFilaDeTriagemProjection;
 
 
 public class BuscarPosicaoNaFilaDeTriagemUseCase
@@ -25,10 +25,10 @@ public class BuscarPosicaoNaFilaDeTriagemUseCase
                 .orElseThrow( () -> new PacienteNaoEncontradoPeloIdException( pacienteId ) );
         
         
-        PosicaoNaFilaProjection posicaoNaFilaProjection = this.triagemGateway.buscarPosicaoNaFilaDeTriagem( pacienteId );
+        PosicaoNaFilaDeTriagemProjection posicaoNaFilaDeTriagemProjection = this.triagemGateway.buscarPosicaoNaFilaDeTriagem( pacienteId );
         
-        int posicaoAtual = posicaoNaFilaProjection.getPosicaoNaFila();
-        int totalFila    = posicaoNaFilaProjection.getTotalNaFila();
+        int posicaoAtual = posicaoNaFilaDeTriagemProjection.getPosicaoNaFila();
+        int totalFila    = posicaoNaFilaDeTriagemProjection.getTotalNaFila();
         
         return new PosicaoNaFilaDeTriagemOutput( pacienteId , posicaoAtual , totalFila );
     }

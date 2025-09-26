@@ -1,9 +1,6 @@
 package br.com.fiap.uniquesus.infrastructure.configs;
 
-import br.com.fiap.uniquesus.application.usecases.consulta.BuscarConsultaPeloIdUseCase;
-import br.com.fiap.uniquesus.application.usecases.consulta.BuscarConsultasUseCase;
-import br.com.fiap.uniquesus.application.usecases.consulta.FinalizarConsultaUseCase;
-import br.com.fiap.uniquesus.application.usecases.consulta.IniciarConsultaUseCase;
+import br.com.fiap.uniquesus.application.usecases.consulta.*;
 import br.com.fiap.uniquesus.domain.gateways.AtendimentoGateway;
 import br.com.fiap.uniquesus.domain.gateways.ConsultaGateway;
 import br.com.fiap.uniquesus.domain.gateways.MedicoGateway;
@@ -36,5 +33,11 @@ public class ConsultaUseCaseConfig
     public FinalizarConsultaUseCase finalizarConsultaUseCase ( ConsultaGateway consultaGateway , AtendimentoGateway atendimentoGateway , MedicoGateway medicoGateway , PacienteGateway pacienteGateway )
     {
         return new FinalizarConsultaUseCase( consultaGateway , atendimentoGateway , medicoGateway , pacienteGateway );
+    }
+    
+    @Bean
+    public BuscarPosicaoNaFilaDeConsultaUseCase buscarPosicaoNaFilaDeConsultaUseCase ( ConsultaGateway consultaGateway , PacienteGateway pacienteGateway )
+    {
+        return new BuscarPosicaoNaFilaDeConsultaUseCase( consultaGateway , pacienteGateway );
     }
 }

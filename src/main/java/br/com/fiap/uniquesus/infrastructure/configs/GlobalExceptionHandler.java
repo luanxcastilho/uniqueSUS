@@ -3,6 +3,7 @@ package br.com.fiap.uniquesus.infrastructure.configs;
 import br.com.fiap.uniquesus.domain.exceptions.atendimento.AtendimentoNaoEncontradoPeloIdException;
 import br.com.fiap.uniquesus.domain.exceptions.atendimento.AtendimentoNaoEncontradoPeloPacienteIdException;
 import br.com.fiap.uniquesus.domain.exceptions.consulta.ConsultaNaoEncontradaPeloIdException;
+import br.com.fiap.uniquesus.domain.exceptions.consulta.PacienteNaoEstaNaFilaDeConsultaException;
 import br.com.fiap.uniquesus.domain.exceptions.enfermeiro.CorenJaRegistradoException;
 import br.com.fiap.uniquesus.domain.exceptions.enfermeiro.EnfermeiroNaoEncontradoPeloCorenException;
 import br.com.fiap.uniquesus.domain.exceptions.enfermeiro.EnfermeiroNaoEncontradoPeloIdException;
@@ -147,6 +148,14 @@ public class GlobalExceptionHandler
     // Tratamento para consulta
     @ExceptionHandler(ConsultaNaoEncontradaPeloIdException.class)
     public ResponseEntity<Map<String, Object>> consultaNaoEncontradaPeloIdExceptionHandler ( ConsultaNaoEncontradaPeloIdException ex )
+    {
+        Map<String, Object> body = new HashMap<>();
+        body.put( "message" , ex.getMessage() );
+        return ResponseEntity.status( HttpStatus.NOT_FOUND ).body( body );
+    }
+    
+    @ExceptionHandler(PacienteNaoEstaNaFilaDeConsultaException.class)
+    public ResponseEntity<Map<String, Object>> pacienteNaoEstaNaFilaDeConsultaExceptionHandler ( PacienteNaoEstaNaFilaDeConsultaException ex )
     {
         Map<String, Object> body = new HashMap<>();
         body.put( "message" , ex.getMessage() );
