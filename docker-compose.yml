@@ -1,14 +1,39 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: uniquesus-db
+    container_name: uniquesus-mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: uniquesus_db
       MYSQL_USER: uniquesus
       MYSQL_PASSWORD: uniquesus
+    volumes:
+      - uniquesus-mysql-data:/var/lib/mysql
+    networks:
+      - uniquesus-network
     ports:
       - "3306:3306"
-    volumes:
-      - ./mysql-data:/var/lib/mysql
+
+  uniquesus-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: uniquesus-app
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/uniquesus_db
+      SPRING_DATASOURCE_USERNAME: uniquesus
+      SPRING_DATASOURCE_PASSWORD: uniquesus
+    depends_on:
+      - mysql
+    networks:
+      - uniquesus-network
+    ports:
+      - "8080:8080"
+
+volumes:
+  uniquesus-mysql-data:
+
+networks:
+  uniquesus-network:
